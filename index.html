@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#0A0B0D">
+    <meta name="description" content="Year Dots - Aesthetic year progress wallpaper for your home screen">
+    <title>Year Dots - Year Progress Wallpaper</title>
+    <link rel="manifest" href="manifest.json">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📱</text></svg>">
+</head>
+<body>
+    <!-- Landing Page -->
+    <div id="landing-page">
+        <div class="hero-section">
+            <h1>Year Dots</h1>
+            <p class="tagline">A silent grid of time. Each dot a day, gently filling as the year moves forward.</p>
+
+            <div class="wallpaper-preview">
+                <div id="preview-time">19:01</div>
+                <div id="preview-progress-row"></div>
+                <div id="preview-main-grid"></div>
+                <div id="preview-bottom-ui">
+                    <div id="preview-info-icon">ⓘ</div>
+                    <div id="preview-progress-bar">
+                        <div id="preview-progress-fill"></div>
+                    </div>
+                    <div id="preview-settings-icon">⚙</div>
+                </div>
+                <div id="preview-year-percentage">2.7%</div>
+            </div>
+
+            <div class="cta-section">
+                <button id="install-btn-main" class="install-button">
+                    <span class="button-icon">📱</span>
+                    Add to Home Screen
+                </button>
+
+                <div class="instructions">
+                    <p><strong>On iPhone:</strong> Tap Share → Add to Home Screen</p>
+                    <p><strong>On Android:</strong> Tap "Add to Home Screen" in the browser menu</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="features-section">
+            <div class="feature">
+                <div class="feature-icon">🌙</div>
+                <h3>Dark & Calm</h3>
+                <p>Ultra-minimal design that feels like a night sky made of days</p>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">⚡</div>
+                <h3>Live Progress</h3>
+                <p>Watch the year fill with dots, one day at a time</p>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">📱</div>
+                <h3>PWA Ready</h3>
+                <p>Installs like a native app, works offline</p>
+            </div>
+        </div>
+
+        <footer>
+            <p>A quiet visual object for passive time awareness</p>
+        </footer>
+    </div>
+
+    <!-- Hidden wallpaper for PWA -->
+    <div id="wallpaper-app" class="hidden">
+        <div id="time-display">19:01</div>
+        <div id="progress-row"></div>
+        <div id="main-grid"></div>
+        <div id="bottom-ui">
+            <div id="info-icon">ⓘ</div>
+            <div id="progress-bar">
+                <div id="progress-fill"></div>
+            </div>
+            <div id="settings-icon">⚙</div>
+        </div>
+        <div id="year-percentage">0.0%</div>
+    </div>
+
+    <button id="install-btn" class="hidden">Add to Home Screen</button>
+    <script src="app.js"></script>
+</body>
+</html>
