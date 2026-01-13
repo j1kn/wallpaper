@@ -381,9 +381,9 @@ footer {
 /* Install button */
 #install-btn, #install-btn-main {
     position: fixed;
-    bottom: 50%;
+    bottom: 20px;
     left: 50%;
-    transform: translate(-50%, 50%);
+    transform: translateX(-50%);
     background: rgba(10, 11, 13, 0.9);
     border: 1px solid rgba(255, 255, 255, 0.2);
     color: rgba(255, 255, 255, 0.7);
@@ -394,6 +394,7 @@ footer {
     cursor: pointer;
     transition: all 0.2s ease;
     backdrop-filter: blur(10px);
+    z-index: 1000;
 }
 
 #install-btn.hidden, #install-btn-main.hidden {

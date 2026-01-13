@@ -247,57 +247,96 @@ class YearDots {
     }
 
     setupInstallPrompt() {
-        // Listen for install prompt
-        window.addEventListener('beforeinstallprompt', (e) => {
-            e.preventDefault();
-            this.deferredPrompt = e;
+        // Check if PWA is supported
+        if ('serviceWorker' in navigator && 'BeforeInstallPromptEvent' in window) {
+            console.log('PWA supported');
 
-            // Show install buttons
-            if (this.installBtnMain) this.installBtnMain.classList.remove('hidden');
-            if (this.installBtn) this.installBtn.classList.remove('hidden');
+            // Listen for install prompt
+            window.addEventListener('beforeinstallprompt', (e) => {
+                console.log('beforeinstallprompt event fired');
+                e.preventDefault();
+                this.deferredPrompt = e;
 
-            // Handle main install button click
-            if (this.installBtnMain) {
+                // Show install buttons
+                if (this.installBtnMain) {
+                    this.installBtnMain.classList.remove('hidden');
+                    console.log('Main install button shown');
+                }
+                if (this.installBtn) {
+                    this.installBtn.classList.remove('hidden');
+                    console.log('Secondary install button shown');
+                }
+
+                // Handle main install button click
+                if (this.installBtnMain) {
+                    this.installBtnMain.addEventListener('click', async () => {
+                        console.log('Main install button clicked');
+                        if (this.installBtnMain) this.installBtnMain.classList.add('hidden');
+                        if (this.installBtn) this.installBtn.classList.add('hidden');
+
+                        if (this.deferredPrompt) {
+                            this.deferredPrompt.prompt();
+                            const { outcome } = await this.deferredPrompt.userChoice;
+                            console.log(`User response to install prompt: ${outcome}`);
+
+                            if (outcome === 'accepted') {
+                                console.log('User accepted the install prompt');
+                                this.showWallpaperMode();
+                            }
+                            this.deferredPrompt = null;
+                        }
+                    });
+                }
+
+                // Handle secondary install button click
+                if (this.installBtn) {
+                    this.installBtn.addEventListener('click', async () => {
+                        console.log('Secondary install button clicked');
+                        if (this.installBtn) this.installBtn.classList.add('hidden');
+                        if (this.installBtnMain) this.installBtnMain.classList.add('hidden');
+
+                        if (this.deferredPrompt) {
+                            this.deferredPrompt.prompt();
+                            const { outcome } = await this.deferredPrompt.userChoice;
+                            console.log(`User response to install prompt: ${outcome}`);
+
+                            if (outcome === 'accepted') {
+                                console.log('User accepted the install prompt');
+                                this.showWallpaperMode();
+                            }
+                            this.deferredPrompt = null;
+                        }
+                    });
+                }
+            });
+
+            // Hide buttons if already installed
+            window.addEventListener('appinstalled', () => {
+                console.log('App was installed');
+                if (this.installBtnMain) this.installBtnMain.classList.add('hidden');
+                if (this.installBtn) this.installBtn.classList.add('hidden');
+                this.deferredPrompt = null;
+                this.showWallpaperMode();
+            });
+
+        } else {
+            console.log('PWA not supported, showing iOS instructions');
+            // For iOS Safari and other browsers without beforeinstallprompt support
+            const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+            if (isIOS && this.installBtnMain) {
+                // Change button text for iOS
+                this.installBtnMain.innerHTML = '<span class="button-icon">📱</span> Install on iOS';
+                this.installBtnMain.classList.remove('hidden');
+
                 this.installBtnMain.addEventListener('click', () => {
-                    this.installBtnMain.classList.add('hidden');
-                    if (this.installBtn) this.installBtn.classList.add('hidden');
-                    this.deferredPrompt.prompt();
-
-                    this.deferredPrompt.userChoice.then((choiceResult) => {
-                        if (choiceResult.outcome === 'accepted') {
-                            console.log('User accepted the install prompt');
-                            this.showWallpaperMode();
-                        }
-                        this.deferredPrompt = null;
-                    });
+                    alert('On iPhone: Tap the Share button (📤) below, then "Add to Home Screen"');
                 });
+            } else {
+                // Hide install buttons if PWA is not supported and not iOS
+                if (this.installBtnMain) this.installBtnMain.style.display = 'none';
+                if (this.installBtn) this.installBtn.style.display = 'none';
             }
-
-            // Handle secondary install button click
-            if (this.installBtn) {
-                this.installBtn.addEventListener('click', () => {
-                    this.installBtn.classList.add('hidden');
-                    if (this.installBtnMain) this.installBtnMain.classList.add('hidden');
-                    this.deferredPrompt.prompt();
-
-                    this.deferredPrompt.userChoice.then((choiceResult) => {
-                        if (choiceResult.outcome === 'accepted') {
-                            console.log('User accepted the install prompt');
-                            this.showWallpaperMode();
-                        }
-                        this.deferredPrompt = null;
-                    });
-                });
-            }
-        });
-
-        // Hide buttons if already installed
-        window.addEventListener('appinstalled', () => {
-            if (this.installBtnMain) this.installBtnMain.classList.add('hidden');
-            if (this.installBtn) this.installBtn.classList.add('hidden');
-            this.deferredPrompt = null;
-            this.showWallpaperMode();
-        });
+        }
     }
 }
 
