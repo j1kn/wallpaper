@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="24dp"
+    android:background="#0A0B0D"
+    android:gravity="center">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Year Dots"
+        android:textSize="32sp"
+        android:textColor="#FFFFFF"
+        android:textStyle="bold"
+        android:layout_marginBottom="16dp"
+        android:gravity="center" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="A silent grid of time.\nEach dot a day, gently filling as the year moves forward."
+        android:textSize="16sp"
+        android:textColor="#FFFFFF"
+        android:alpha="0.7"
+        android:layout_marginBottom="48dp"
+        android:gravity="center"
+        android:lineSpacingExtra="4dp" />
+
+    <Button
+        android:id="@+id/setWallpaperButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Set as Wallpaper"
+        android:textSize="18sp"
+        android:textColor="#FFFFFF"
+        android:background="@drawable/button_background"
+        android:padding="16dp"
+        android:layout_marginBottom="24dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="This will request permission to set your wallpaper and allow the dots to update live as time passes."
+        android:textSize="14sp"
+        android:textColor="#FFFFFF"
+        android:alpha="0.6"
+        android:gravity="center" />
+
+</LinearLayout>
